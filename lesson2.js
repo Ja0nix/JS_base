@@ -45,3 +45,25 @@ function calc(a, b) {
 }
 calc(a, b);
 console.log(result);
+
+
+//4. Присвоить переменной а значение в промежутке [0..15]. 
+// С помощью оператора switch организовать вывод чисел от a до 15.
+a = 5;
+function numberLog(a) {
+
+    while (a <= 15) {
+
+        switch (a) {
+            case a:
+                console.log(a);
+                break;
+        
+            default:
+                break;
+        }
+        a++;
+        
+    }
+}
+numberLog(a);
