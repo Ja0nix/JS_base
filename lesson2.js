@@ -77,7 +77,7 @@ function sumNumbers(a, b) {
 }
 
 function subtractNumbers(a, b) {
-    return a + b;
+    return a - b;
 }
 
 function multiplyNumbers(a, b) {
@@ -86,4 +86,26 @@ function multiplyNumbers(a, b) {
 
 function divideNumbers(a, b) {
     return a / b;
+}
+
+
+/* 6. Реализовать функцию с тремя параметрами: function mathOperation(arg1, arg2, operation), 
+где arg1, arg2 – значения аргументов, operation – строка с названием операции. 
+В зависимости от переданного значения операции выполнить одну из арифметических операций (использовать функции из пункта 5) 
+и вернуть полученное значение (использовать switch).
+*/
+
+function mathOperation(arg1, arg2, operation) {
+    switch (operation) {
+        case sumNumbers:
+            return sumNumbers(arg1, arg2);
+        case subtractNumbers:
+            return subtractNumbers(arg1, arg2);
+        case multiplyNumbers:
+            return multiplyNumbers(arg1, arg2);
+        case divideNumbers:
+            return divideNumbers(arg1, arg2);
+        default:
+            break;
+    }
 }
