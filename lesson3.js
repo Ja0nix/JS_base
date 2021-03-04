@@ -33,3 +33,18 @@ function countBasketPrice(cart) {
 }
 
 console.log(countBasketPrice(cart));
+
+
+/*4. *Нарисовать пирамиду с помощью console.log, как показано на рисунке, только у вашей пирамиды должно быть 20 рядов, а не 5:
+x
+xx
+xxx
+xxxx
+xxxxx*/
+
+let rows = 20;
+let printX = '';
+for (let i = 1; i <= rows; i++) {
+    printX = 'x' + printX;
+    console.log(printX);
+}
