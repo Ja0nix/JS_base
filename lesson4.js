@@ -60,3 +60,27 @@ function totalSum(cart) {
         }
     return sum;
 }
+
+// Реализация преподавателя именно корзины как объекта + использование reduce
+
+const basket = {
+    goods: [
+      {
+        id_product: 123,
+        product_name: "Ноутбук",
+        price: 45600,
+        quantity: 1
+      },
+      {
+        id_product: 456,
+        product_name: "Мышка",
+        price: 1000,
+        quantity: 3
+      }
+    ],
+    countBasketPrice() {
+      return this.goods.reduce((totalPrice, cartItem) => totalPrice + cartItem.price * cartItem.quantity, 0);
+    }
+  };
+
+  console.log(basket.countBasketPrice());
