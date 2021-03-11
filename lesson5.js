@@ -93,3 +93,39 @@ cellLetters(); // расставляем буквы
 /*3. Сделать генерацию корзины динамической: верстка корзины не должна находиться в HTML-структуре. Там должен быть только div, в который будет вставляться корзина, сгенерированная на базе JS:
 3.1. Пустая корзина должна выводить строку «Корзина пуста»;
 3.2. Наполненная должна выводить «В корзине: n товаров на сумму m рублей».*/
+
+const basket = {
+    goods: [
+      {
+        id_product: 123,
+        product_name: "Ноутбук",
+        price: 45600,
+        quantity: 1
+      },
+      {
+        id_product: 456,
+        product_name: "Мышка",
+        price: 1000,
+        quantity: 3
+      }
+    ],
+    countBasketPrice() {
+      return this.goods.reduce((totalPrice, cartItem) => totalPrice + cartItem.price * cartItem.quantity, 0);
+    },
+    countBasketItems() {
+        return this.goods.reduce((totaItems, cartItem) => totaItems + cartItem.quantity, 0);
+      }
+  };
+
+ // console.log(basket.countBasketItems());
+
+function cartDisplay() {
+    const cartDiv = document.getElementById('cart');
+
+    if (basket.countBasketItems() == 0) {
+        cartDiv.textContent = 'Корзина пуста';
+    } else {
+        cartDiv.textContent = 'В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей';
+    }
+};
+cartDisplay();
