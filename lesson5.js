@@ -129,3 +129,47 @@ function cartDisplay() {
     }
 };
 cartDisplay();
+
+/*
+4*. Сделать так, чтобы товары в каталоге выводились при помощи JS:
+4.1. Создать массив товаров (сущность Product);
+4.2. При загрузке страницы на базе данного массива генерировать вывод из него. 
+HTML-код должен содержать только div id=”catalog” без вложенного кода. 
+Весь вид каталога генерируется JS.*/
+
+const Product = {
+    goods: [
+      {
+        id_product: 123,
+        product_name: "Ноутбук",
+        price: 45600
+      },
+      {
+        id_product: 456,
+        product_name: "Мышка",
+        price: 1000
+      }
+    ],
+    //тут будут какие-то методы для каталога
+  };
+ 
+  //функция для вывода всех продуктов из объекта 
+  // вывела название и цену продукта
+  function catalogСreate() {
+    let containerElement = document.getElementById('catalog');
+    containerElement.innerHTML = '';
+ 
+    Product.goods.forEach(element => {
+        const productDiv = document.createElement('div'); //каждому продукту свой див
+        containerElement.appendChild(productDiv);
+
+        const name = document.createElement('h2');
+        productDiv.appendChild(name);
+        name.textContent = 'Название: ' + element.product_name;
+
+        const price = document.createElement('p');
+        productDiv.appendChild(price);
+        price.textContent = 'Price: ' + element.price;
+    });
+  };
+  catalogСreate();
