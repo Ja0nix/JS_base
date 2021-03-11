@@ -55,8 +55,23 @@ function darkCellColor() {
     
 };
 
+// расставляем цифры
+function cellNumber() {
+    for (let row = 1; row < 9; row++) { 
+            for (let count = 1; count < 8; count++) { 
+                let numberell = document
+            
+                .querySelector('tr:nth-child(' + (row) + ')')
+                        .querySelector('td:last-child');
+            
+                numberell.textContent = row;
+            }
+        } 
+};
+
 initCells(); //выводим поле 9х9
 darkCellColor(); //закрашиваем черным
+cellNumber(); //добавляем цифры
 
 //document.addEventListener('DOMContentLoaded', function () {
 //    initCells();
