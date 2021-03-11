@@ -55,7 +55,7 @@ function darkCellColor() {
     
 };
 
-// расставляем цифры
+// функция для расстановки цифры
 function cellNumber() {
     for (let row = 1; row < 9; row++) { 
             for (let count = 1; count < 8; count++) { 
@@ -69,13 +69,26 @@ function cellNumber() {
         } 
 };
 
+// функция для расстановки буквы
+function cellLetters() {
+    let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+        for (let col = 1; col < 9; col++) { 
+            let numberell = document
+        
+            .querySelector('tr:last-child')
+                    .querySelector('td:nth-child(' + (col) + ')');
+        
+            numberell.textContent = letters[col - 1];
+        }
+};
+
+
+// вызываем все функции подряд
 initCells(); //выводим поле 9х9
 darkCellColor(); //закрашиваем черным
 cellNumber(); //добавляем цифры
+cellLetters(); // расставляем буквы
 
-//document.addEventListener('DOMContentLoaded', function () {
-//    initCells();
-//});
 
 /*3. Сделать генерацию корзины динамической: верстка корзины не должна находиться в HTML-структуре. Там должен быть только div, в который будет вставляться корзина, сгенерированная на базе JS:
 3.1. Пустая корзина должна выводить строку «Корзина пуста»;
