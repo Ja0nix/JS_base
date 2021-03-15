@@ -59,25 +59,42 @@ const basket = {
     },
 
     cartDisplay() {
-        const cartDiv = document.getElementById('cart');
+
+        this.basketTextDisplay();
+
+        this.basketItemsDisplay();
+    },
+
+    basketItemsDisplay() {
+        const itemsDiv = document.getElementById('itemsDiv');
+    
+        basket.goods.forEach(element => {
+            let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Цена: ' + element.price + '</p><p>Количество: ' + element.quantity + '</p></div>';
+            itemsDiv.insertAdjacentHTML('afterbegin', insertedText);
+        });
+        
+    },
+    
+    basketTextDisplay() {
+        const basketText = document.getElementById('basketText');
     
         if (basket.countBasketItems() == 0) {
-            cartDivContent = 'Корзина пуста';
+            basketTextContent = 'Корзина пуста';
         } else {
-            cartDivContent = '<h3>В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей</h3>';
-    }
-    cartDiv.insertAdjacentHTML('afterend', cartDivContent);
+            basketTextContent = '<h3>В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей</h3>';
+        }
+        basketText.insertAdjacentHTML('afterbegin', basketTextContent);
+    },
 
-    basket.goods.forEach(element => {
+    clearBasket() {
+        const itemsDiv = document.getElementById('itemsDiv');
+        itemsDiv.innerText = '';
 
-        let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Цена: ' + element.price + '</p><p>Количество: ' + element.quantity + '</p></div>';
-
-        cartDiv.insertAdjacentHTML('afterbegin', insertedText);
-    });
+        const basketText = document.getElementById('basketText');
+        basketText.innerText = '';
     },
 
     initEventHandlers() {
-        debugger;
         document.getElementById('catalog').addEventListener('click', function (event) {
            //console.log(event.target.id);
            this.goods.forEach(element => {
@@ -85,12 +102,13 @@ const basket = {
                     element.quantity += 1;
                 }
            });
+           this.clearBasket();
+           this.cartDisplay();
         }.bind(this));
-
-        this.cartDisplay();
     },
 
     init() {
+        this.cartDisplay();
         this.initEventHandlers();
     },
 }
