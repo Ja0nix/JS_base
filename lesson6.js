@@ -14,6 +14,11 @@ const Product = {
         id_product: 456,
         product_name: "Мышка",
         price: 1000
+      }, 
+      {
+        id_product: 421,
+        product_name: "Тестовый",
+        price: 1000
       }
     ],
     
@@ -94,12 +99,24 @@ const basket = {
         basketText.innerText = '';
     },
 
+  
     initEventHandlers() {
         document.getElementById('catalog').addEventListener('click', function (event) {
            //console.log(event.target.id);
            this.goods.forEach(element => {
+               
                 if (element.id_product == event.target.id) {
                     element.quantity += 1;
+                }
+                if ((event.target.id != element.id_product) && (this.goods.find(item => item.id_product == event.target.id) == underfined ))  {
+                    let newItem = Product.goods.find(item => item.id_product == event.target.id);
+
+                    this.goods.push({
+                        id_product: newItem.id_product,
+                        product_name: newItem.product_name,
+                        price: newItem.price,
+                        quantity: 1,
+                    });
                 }
            });
            this.clearBasket();
