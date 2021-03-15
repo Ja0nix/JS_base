@@ -101,7 +101,7 @@ const basket = {
         product_name: "Ноутбук",
         price: 45600,
         quantity: 1
-      },
+      }, 
       {
         id_product: 456,
         product_name: "Мышка",
@@ -109,26 +109,28 @@ const basket = {
         quantity: 3
       }
     ],
+
     countBasketPrice() {
       return this.goods.reduce((totalPrice, cartItem) => totalPrice + cartItem.price * cartItem.quantity, 0);
-    },
+    }, 
+
     countBasketItems() {
         return this.goods.reduce((totaItems, cartItem) => totaItems + cartItem.quantity, 0);
-      }
-  };
+    },
 
- // console.log(basket.countBasketItems());
-
-function cartDisplay() {
-    const cartDiv = document.getElementById('cart');
-
-    if (basket.countBasketItems() == 0) {
-        cartDiv.textContent = 'Корзина пуста';
-    } else {
-        cartDiv.textContent = 'В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей';
+    cartDisplay() {
+        const cartDiv = document.getElementById('cart');
+    
+        if (basket.countBasketItems() == 0) {
+            cartDiv.textContent = 'Корзина пуста';
+        } else {
+            cartDiv.textContent = 'В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей';
     }
-};
-cartDisplay();
+  },
+}
+
+
+basket.cartDisplay();
 
 /*
 4*. Сделать так, чтобы товары в каталоге выводились при помощи JS:
@@ -143,33 +145,26 @@ const Product = {
         id_product: 123,
         product_name: "Ноутбук",
         price: 45600
-      },
+      }, 
       {
         id_product: 456,
         product_name: "Мышка",
         price: 1000
       }
     ],
-    //тут будут какие-то методы для каталога
+    
+    catalogСreate() {
+        let containerElement = document.getElementById('catalog');
+        containerElement.innerHTML = '';
+     
+        Product.goods.forEach(element => {
+
+            let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Price: ' + element.price + '</p></div>';
+
+            containerElement.insertAdjacentHTML('afterbegin', insertedText);
+        });
+      },
+
   };
  
-  //функция для вывода всех продуктов из объекта 
-  // вывела название и цену продукта
-  function catalogСreate() {
-    let containerElement = document.getElementById('catalog');
-    containerElement.innerHTML = '';
- 
-    Product.goods.forEach(element => {
-        const productDiv = document.createElement('div'); //каждому продукту свой див
-        containerElement.appendChild(productDiv);
-
-        const name = document.createElement('h2');
-        productDiv.appendChild(name);
-        name.textContent = 'Название: ' + element.product_name;
-
-        const price = document.createElement('p');
-        productDiv.appendChild(price);
-        price.textContent = 'Price: ' + element.price;
-    });
-  };
-  catalogСreate();
+Product.catalogСreate();
