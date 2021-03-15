@@ -75,8 +75,10 @@ const basket = {
         const itemsDiv = document.getElementById('itemsDiv');
     
         basket.goods.forEach(element => {
+            if(element.quantity > 0) {
             let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Цена: ' + element.price + '</p><p>Количество: ' + element.quantity + '</p></div>';
             itemsDiv.insertAdjacentHTML('afterbegin', insertedText);
+            }
         });
     }
         
