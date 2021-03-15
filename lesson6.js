@@ -68,6 +68,7 @@ const basket = {
         this.basketItemsDisplay();
     },
 
+    //Вывод товаров в корзине
     basketItemsDisplay() {
         if (basket.countBasketItems() != 0) {
         const itemsDiv = document.getElementById('itemsDiv');
@@ -82,6 +83,7 @@ const basket = {
         
     },
     
+    //Вывод текста с информацией по корзине и кнопки очистки корзины
     basketTextDisplay() {
         const basketText = document.getElementById('basketText');
     
@@ -95,6 +97,7 @@ const basket = {
         }
     },
 
+    //Метод очистки корзины
     clearBasket() {
         const itemsDiv = document.getElementById('itemsDiv');
         itemsDiv.innerText = '';
@@ -103,11 +106,12 @@ const basket = {
         basketText.innerHTML = 'Корзина пуста';
     },
 
+    //Метод очистки корзины
     deleteItemsFromCart() {
         document.getElementById('delete').addEventListener('click', this.clearBasket.bind(this)); 
     },
 
-  
+    //Метод добавления товаров в корзину и обновления корзины
     initEventHandlers() {
         document.getElementById('catalog').addEventListener('click', function (event) {
            //console.log(event.target.id);
@@ -140,6 +144,7 @@ const basket = {
         }.bind(this));
     },
 
+    //Метод для запуска функционала
     init() {
         this.cartDisplay();  //первоначально вызывем, потом хэнделер перерисовывает элементы
         this.initEventHandlers();
