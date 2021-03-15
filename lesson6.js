@@ -45,13 +45,13 @@ const basket = {
         id_product: 123,
         product_name: "Ноутбук",
         price: 45600,
-        quantity: 1,
+        quantity: 0,
       }, 
       {
         id_product: 456,
         product_name: "Мышка",
         price: 1000,
-        quantity: 3,
+        quantity: 0,
       }
     ],
 
@@ -71,12 +71,14 @@ const basket = {
     },
 
     basketItemsDisplay() {
+        if (basket.countBasketItems() != 0) {
         const itemsDiv = document.getElementById('itemsDiv');
     
         basket.goods.forEach(element => {
             let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Цена: ' + element.price + '</p><p>Количество: ' + element.quantity + '</p></div>';
             itemsDiv.insertAdjacentHTML('afterbegin', insertedText);
         });
+    }
         
     },
     
@@ -103,13 +105,19 @@ const basket = {
     initEventHandlers() {
         document.getElementById('catalog').addEventListener('click', function (event) {
            //console.log(event.target.id);
-           this.goods.forEach(element => {
+           let isInGoods = this.goods.find(item => item.id_product == event.target.id);
 
-                if (element.id_product == event.target.id) {
+           if (isInGoods) {
+            this.goods.forEach(element => {
+                if (event.target.id == element.id_product) {
+                    this.clearBasket();
                     element.quantity += 1;
-                }
-                
-                if ((element.id_product != event.target.id) && (event.target.id != this.goods.find(item => item.id_product == element.id_product)))  {
+                    this.cartDisplay();
+           
+                    } 
+                })
+            } else {
+                    this.clearBasket();
 
                     let newItem = Product.goods.find(item => item.id_product == event.target.id);
 
@@ -120,10 +128,9 @@ const basket = {
                         quantity: 1,
                     });
 
-                }
-           });
-           this.clearBasket();
-           this.cartDisplay();
+                    this.cartDisplay();
+            }
+           
         }.bind(this));
     },
 
