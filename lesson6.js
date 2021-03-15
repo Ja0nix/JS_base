@@ -64,9 +64,7 @@ const basket = {
     },
 
     cartDisplay() {
-
         this.basketTextDisplay();
-
         this.basketItemsDisplay();
     },
 
@@ -76,8 +74,8 @@ const basket = {
     
         basket.goods.forEach(element => {
             if(element.quantity > 0) {
-            let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Цена: ' + element.price + '</p><p>Количество: ' + element.quantity + '</p></div>';
-            itemsDiv.insertAdjacentHTML('afterbegin', insertedText);
+                let insertedText = '<div><h2>Название: ' + element.product_name + '</h2><p>Цена: ' + element.price + '</p><p>Количество: ' + element.quantity + '</p></div>';
+                itemsDiv.insertAdjacentHTML('afterbegin', insertedText);
             }
         });
     }
@@ -89,10 +87,12 @@ const basket = {
     
         if (basket.countBasketItems() == 0) {
             basketTextContent = 'Корзина пуста';
+            basketText.innerHTML = basketTextContent;
         } else {
-            basketTextContent = '<h3>В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей</h3>';
+            basketTextContent = '<h3>В корзине: ' + basket.countBasketItems() + ' товара на сумму ' + basket.countBasketPrice() +' рублей</h3><button id = "delete">Очистить корзину</button>';
+            basketText.innerHTML = basketTextContent;
+            this.deleteItemsFromCart();
         }
-        basketText.insertAdjacentHTML('afterbegin', basketTextContent);
     },
 
     clearBasket() {
@@ -100,7 +100,11 @@ const basket = {
         itemsDiv.innerText = '';
 
         const basketText = document.getElementById('basketText');
-        basketText.innerText = '';
+        basketText.innerHTML = 'Корзина пуста';
+    },
+
+    deleteItemsFromCart() {
+        document.getElementById('delete').addEventListener('click', this.clearBasket.bind(this)); 
     },
 
   
@@ -137,7 +141,7 @@ const basket = {
     },
 
     init() {
-        this.cartDisplay();
+        this.cartDisplay();  //первоначально вызывем, потом хэнделер перерисовывает элементы
         this.initEventHandlers();
     },
 }
