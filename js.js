@@ -292,6 +292,7 @@ const game = {
     this.stop();
     this.snake.init(this.getStartSnakeBody(), 'up');
     this.food.setCoordinates(this.getRandomFreeCoordinates());
+    this.foodEatenCountToZero();
     this.render();
   },
 
@@ -341,6 +342,7 @@ const game = {
     this.status.setFinished();
     clearInterval(this.tickInterval);
     this.setPlayButton('Игра закончена', true);
+    this.foodEatenCountToZero();
   },
 
   setPlayButton(text, isDisabled = false) {
@@ -350,11 +352,24 @@ const game = {
     isDisabled ? playButton.classList.add('disabled') : playButton.classList.remove('disabled');
   },
 
+  foodEatenCount() {
+    const foodEatenNumber = this.snake.body.length - 1;
+
+    const foodEatenButton = document.getElementById('foodEatenCount');
+    foodEatenButton.innerHTML = 'Счет: ' + foodEatenNumber;
+  },
+
+  foodEatenCountToZero() {
+    const foodEatenButton = document.getElementById('foodEatenCount');
+    foodEatenButton.innerHTML = 'Счет: 0';
+  },
+
   tickHandler() {
     if (!this.canMakeStep()) return this.finish();
 
     if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
       this.snake.growUp();
+      this.foodEatenCount();
       this.food.setCoordinates(this.getRandomFreeCoordinates());
 
       if (this.isGameWon()) this.finish();
