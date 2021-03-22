@@ -395,6 +395,10 @@ const game = {
   tickHandler() {
     if (!this.canMakeStep()) return this.finish();
 
+    if (this.wall.isOnPoint(this.snake.getNextStepHeadPoint())) {
+      return this.finish()
+    }
+
     if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
       this.snake.growUp();
       this.foodEatenCount();
