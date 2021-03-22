@@ -87,7 +87,7 @@ const map = {
     console.log(this.cells);
   },
 
-  render(snakePointsArray, foodPoint) {
+  render(snakePointsArray, foodPoint, wallPoint) {
     for (const cell of this.usedCells) {
       cell.className = 'cell';
     }
@@ -105,6 +105,11 @@ const map = {
 
     foodCell.classList.add('food');
     this.usedCells.push(foodCell);
+
+    const wallCell = this.cells[`x${wallPoint.x}_y${wallPoint.y}`];
+
+    wallCell.classList.add('wall');
+    this.usedCells.push(wallCell);
   },
 };
 
@@ -180,6 +185,27 @@ const food = {
   },
 };
 
+const wall = {
+  x: null,
+  y: null,
+
+  getCoordinates() {
+    return {
+      x: this.x,
+      y: this.y,
+    };
+  },
+
+  setCoordinates(point) {
+    this.x = point.x;
+    this.y = point.y;
+  },
+
+  isOnPoint(point) {
+    return this.x === point.x && this.y === point.y;
+  },
+};
+
 const status = {
   condition: null,
 
@@ -209,6 +235,7 @@ const game = {
   map,
   snake,
   food,
+  wall,
   status,
   tickInterval: null,
 
@@ -292,6 +319,7 @@ const game = {
     this.stop();
     this.snake.init(this.getStartSnakeBody(), 'up');
     this.food.setCoordinates(this.getRandomFreeCoordinates());
+    this.wall.setCoordinates(this.getRandomFreeCoordinates());
     this.foodEatenCountToZero();
     this.render();
   },
@@ -306,7 +334,7 @@ const game = {
   },
 
   getRandomFreeCoordinates() {
-    const exclude = [this.food.getCoordinates(), ...this.snake.getBody()];
+    const exclude = [this.food.getCoordinates(), ...this.snake.getBody(), this.wall.getCoordinates()];
     // without ... -  [{}, [{}, {}, {}]] => with ... [{}, {}, {}, {}];
     while (true) {
       const rndPoint = {
@@ -321,7 +349,7 @@ const game = {
   },
 
   render() {
-    this.map.render(this.snake.getBody(), this.food.getCoordinates());
+    this.map.render(this.snake.getBody(), this.food.getCoordinates(), this.wall.getCoordinates());
   },
 
   play() {
@@ -371,6 +399,7 @@ const game = {
       this.snake.growUp();
       this.foodEatenCount();
       this.food.setCoordinates(this.getRandomFreeCoordinates());
+      this.wall.setCoordinates(this.getRandomFreeCoordinates());
 
       if (this.isGameWon()) this.finish();
     }
